@@ -1,5 +1,6 @@
 package med.data.api.controllers;
 
+import jakarta.validation.Valid;
 import med.data.api.dtos.MedicoRequest;
 import med.data.api.model.Medico;
 import med.data.api.repositories.MedicoRepository;
@@ -17,7 +18,7 @@ public class MedicoController {
     MedicoRepository medicoRepository;
 
     @PostMapping
-    public void cadastrarMedicos(@RequestBody MedicoRequest request) {
+    public void cadastrarMedicos(@RequestBody @Valid MedicoRequest request) {
         var medico = Medico.of(request);
         medicoRepository.save(medico);
     }
