@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import med.data.api.dtos.MedicoRequest;
+import med.data.api.dtos.requests.MedicoRequest;
 import med.data.api.model.enums.Especialidade;
 
 import java.util.UUID;

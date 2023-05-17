@@ -1,15 +1,15 @@
 package med.data.api.controllers;
 
 import jakarta.validation.Valid;
-import med.data.api.MedicoService;
-import med.data.api.dtos.MedicoRequest;
+import med.data.api.dtos.response.MedicoResponse;
 import med.data.api.model.Medico;
-import med.data.api.repositories.MedicoRepository;
+import med.data.api.services.MedicoService;
+import med.data.api.dtos.requests.MedicoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("medico")
@@ -19,8 +19,13 @@ public class MedicoController {
     MedicoService medicoService;
 
     @PostMapping
-    public void cadastrarMedicos(@RequestBody @Valid MedicoRequest request) {
-        medicoService.save(request);
+    public ResponseEntity<Medico> cadastrarMedicos(@RequestBody @Valid MedicoRequest request) {
+        return ResponseEntity.ok(medicoService.save(request));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MedicoResponse>> listar() {
+        return ResponseEntity.ok(medicoService.listar());
     }
 
 }

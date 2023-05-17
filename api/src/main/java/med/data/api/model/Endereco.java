@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.data.api.dtos.EnderecoRequest;
+import med.data.api.dtos.requests.EnderecoRequest;
 
 @Embeddable
 @Getter
