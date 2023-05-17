@@ -6,6 +6,8 @@ import med.data.api.dtos.response.MedicoResponse;
 import med.data.api.model.Medico;
 import med.data.api.repositories.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +23,8 @@ public class MedicoService {
         return medicoRepository.save(Medico.of(request));
     }
 
-    public List<MedicoResponse> listar() {
-        return medicoRepository.findAll().stream().map(MedicoResponse::new).toList();
+    public Page<MedicoResponse> listar(Pageable pageable) {
+        return medicoRepository.findAll(pageable).map(MedicoResponse::new);
     }
 
 }

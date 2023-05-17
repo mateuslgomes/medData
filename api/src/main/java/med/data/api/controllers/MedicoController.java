@@ -6,6 +6,8 @@ import med.data.api.model.Medico;
 import med.data.api.services.MedicoService;
 import med.data.api.dtos.requests.MedicoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +26,8 @@ public class MedicoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MedicoResponse>> listar() {
-        return ResponseEntity.ok(medicoService.listar());
+    public ResponseEntity<Page<MedicoResponse>> listar(Pageable pageable) {
+        return ResponseEntity.ok(medicoService.listar(pageable));
     }
 
 }
