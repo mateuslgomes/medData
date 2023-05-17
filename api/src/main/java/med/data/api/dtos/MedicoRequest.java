@@ -20,6 +20,8 @@ public record MedicoRequest(
         @NotNull
         Especialidade especialidade,
 
-        @NotNull @Valid EnderecoRequest endereco) {
+        @NotNull @Valid EnderecoRequest endereco,
+
+        @NotBlank String telefone) {
 
 }

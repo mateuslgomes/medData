@@ -22,6 +22,7 @@ public class Medico {
     private UUID id;
     private String nome;
     private String email;
+    private String telefone;
     private String crm;
 
     @Enumerated(EnumType.STRING)
@@ -35,6 +36,7 @@ public class Medico {
                 .nome(request.nome())
                 .email(request.email())
                 .crm(request.crm())
+                .telefone(request.telefone())
                 .especialidade(request.especialidade())
                 .endereco(Endereco.of(request.endereco()))
                 .build();

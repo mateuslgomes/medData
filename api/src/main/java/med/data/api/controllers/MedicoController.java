@@ -1,6 +1,7 @@
 package med.data.api.controllers;
 
 import jakarta.validation.Valid;
+import med.data.api.MedicoService;
 import med.data.api.dtos.MedicoRequest;
 import med.data.api.model.Medico;
 import med.data.api.repositories.MedicoRepository;
@@ -15,12 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class MedicoController {
 
     @Autowired
-    MedicoRepository medicoRepository;
+    MedicoService medicoService;
 
     @PostMapping
     public void cadastrarMedicos(@RequestBody @Valid MedicoRequest request) {
-        var medico = Medico.of(request);
-        medicoRepository.save(medico);
+        medicoService.save(request);
     }
 
 }
