@@ -1,4 +1,4 @@
-package med.data.api.domain.dtos.response;
+package med.data.api.domain.medico.dtos.response;
 
 import med.data.api.domain.medico.Medico;
 import med.data.api.domain.medico.enums.Especialidade;

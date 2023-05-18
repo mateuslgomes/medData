@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import med.data.api.domain.dtos.requests.AtualizacaoMedicoRequest;
-import med.data.api.domain.dtos.requests.MedicoRequest;
+import med.data.api.domain.medico.dtos.requests.AtualizacaoMedicoRequest;
+import med.data.api.domain.medico.dtos.requests.MedicoRequest;
 import med.data.api.domain.medico.enums.Especialidade;
 import med.data.api.domain.endereco.Endereco;
 

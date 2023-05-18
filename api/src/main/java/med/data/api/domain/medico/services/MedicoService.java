@@ -1,13 +1,13 @@
-package med.data.api.services;
+package med.data.api.domain.medico.services;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.data.api.domain.dtos.requests.AtualizacaoMedicoRequest;
-import med.data.api.domain.dtos.requests.MedicoRequest;
-import med.data.api.domain.dtos.response.MedicoResponse;
+import med.data.api.domain.medico.dtos.requests.AtualizacaoMedicoRequest;
+import med.data.api.domain.medico.dtos.requests.MedicoRequest;
+import med.data.api.domain.medico.dtos.response.MedicoResponse;
 import med.data.api.domain.medico.Medico;
 import med.data.api.infra.exception.exceptions.MedicoNotFoundException;
-import med.data.api.repositories.MedicoRepository;
+import med.data.api.domain.medico.repositories.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
