@@ -27,7 +27,7 @@ public class MedicoService {
     }
 
     public Page<MedicoResponse> listar(Pageable pageable) {
-        return medicoRepository.findAll(pageable).map(MedicoResponse::new);
+        return medicoRepository.findAllByAtivoTrue(pageable).map(MedicoResponse::new);
     }
 
     @Transactional
