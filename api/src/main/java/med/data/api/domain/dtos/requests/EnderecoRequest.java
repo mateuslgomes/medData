@@ -1,4 +1,4 @@
-package med.data.api.dtos.requests;
+package med.data.api.domain.dtos.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

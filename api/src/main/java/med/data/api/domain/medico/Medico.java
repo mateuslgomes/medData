@@ -1,13 +1,14 @@
-package med.data.api.model;
+package med.data.api.domain.medico;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import med.data.api.dtos.requests.AtualizacaoMedicoRequest;
-import med.data.api.dtos.requests.MedicoRequest;
-import med.data.api.model.enums.Especialidade;
+import med.data.api.domain.dtos.requests.AtualizacaoMedicoRequest;
+import med.data.api.domain.dtos.requests.MedicoRequest;
+import med.data.api.domain.medico.enums.Especialidade;
+import med.data.api.domain.endereco.Endereco;
 
 import java.util.UUID;
 

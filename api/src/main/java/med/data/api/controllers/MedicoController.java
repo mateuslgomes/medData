@@ -1,10 +1,10 @@
 package med.data.api.controllers;
 
 import jakarta.validation.Valid;
-import med.data.api.dtos.requests.AtualizacaoMedicoRequest;
-import med.data.api.dtos.requests.MedicoRequest;
-import med.data.api.dtos.response.MedicoResponse;
-import med.data.api.model.Medico;
+import med.data.api.domain.dtos.requests.AtualizacaoMedicoRequest;
+import med.data.api.domain.dtos.requests.MedicoRequest;
+import med.data.api.domain.dtos.response.MedicoResponse;
+import med.data.api.domain.medico.Medico;
 import med.data.api.services.MedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

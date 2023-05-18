@@ -1,12 +1,11 @@
-package med.data.api.dtos.requests;
+package med.data.api.domain.dtos.requests;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import med.data.api.dtos.requests.EnderecoRequest;
-import med.data.api.model.enums.Especialidade;
+import med.data.api.domain.medico.enums.Especialidade;
 
 public record MedicoRequest(
         @NotBlank

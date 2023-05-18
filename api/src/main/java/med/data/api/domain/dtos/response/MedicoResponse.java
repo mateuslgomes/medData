@@ -1,7 +1,7 @@
-package med.data.api.dtos.response;
+package med.data.api.domain.dtos.response;
 
-import med.data.api.model.Medico;
-import med.data.api.model.enums.Especialidade;
+import med.data.api.domain.medico.Medico;
+import med.data.api.domain.medico.enums.Especialidade;
 
 import java.util.UUID;
 

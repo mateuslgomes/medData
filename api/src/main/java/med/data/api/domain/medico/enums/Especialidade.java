@@ -1,4 +1,4 @@
-package med.data.api.model.enums;
+package med.data.api.domain.medico.enums;
 
 public enum Especialidade {
 
