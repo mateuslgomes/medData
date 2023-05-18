@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class MedicoController {
 
     @PostMapping
     public ResponseEntity<Medico> cadastrarMedicos(@RequestBody @Valid MedicoRequest request) {
-        return ResponseEntity.ok(medicoService.save(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(medicoService.save(request));
     }
 
     @GetMapping
@@ -41,6 +42,11 @@ public class MedicoController {
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         medicoService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Medico> detalhar(@PathVariable UUID id) {
+        return ResponseEntity.ok(medicoService.findById(id));
     }
 
 }

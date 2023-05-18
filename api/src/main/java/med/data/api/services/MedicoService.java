@@ -10,6 +10,7 @@ import med.data.api.repositories.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -41,6 +42,10 @@ public class MedicoService {
     public void deleteById(UUID id) {
         var medico = medicoRepository.getReferenceById(id);
         medico.excluir();
+    }
+
+    public Medico findById(UUID id) {
+        return medicoRepository.findById(id).orElseThrow();
     }
 
 }
