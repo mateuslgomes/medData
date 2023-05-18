@@ -13,6 +13,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("medico")
 public class MedicoController {
@@ -33,6 +35,12 @@ public class MedicoController {
     @PutMapping
     public ResponseEntity<Medico> atualizar(@RequestBody @Valid AtualizacaoMedicoRequest request) {
          return ResponseEntity.ok(medicoService.atualizar(request));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        medicoService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

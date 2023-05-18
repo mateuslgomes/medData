@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.UUID;
+
 @Service
 public class MedicoService {
 
@@ -33,6 +35,12 @@ public class MedicoService {
         var medico = medicoRepository.findById(request.id()).orElseThrow();
         medico.atualizarInformacoes(request);
         return medico;
+    }
+
+    @Transactional
+    public void deleteById(UUID id) {
+        var medico = medicoRepository.getReferenceById(id);
+        medico.excluir();
     }
 
 }

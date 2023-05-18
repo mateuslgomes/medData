@@ -23,6 +23,7 @@ public class Medico {
     private UUID id;
     private String nome;
     private String email;
+    private Boolean ativo;
     private String telefone;
     private String crm;
 
@@ -36,11 +37,16 @@ public class Medico {
         return Medico.builder()
                 .nome(request.nome())
                 .email(request.email())
+                .ativo(true)
                 .crm(request.crm())
                 .telefone(request.telefone())
                 .especialidade(request.especialidade())
                 .endereco(Endereco.of(request.endereco()))
                 .build();
+    }
+
+    public void excluir() {
+        this.ativo = false;
     }
 
     public void atualizarInformacoes(AtualizacaoMedicoRequest request) {
