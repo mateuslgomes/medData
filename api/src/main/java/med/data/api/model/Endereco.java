@@ -34,4 +34,14 @@ public class Endereco {
                 .build();
     }
 
+    public void atualizarInformacoes(EnderecoRequest request) {
+        this.logradouro = request.logradouro() != null ? request.logradouro() : this.logradouro;
+        this.bairro = request.bairro() != null ? request.bairro() : this.bairro;
+        this.cep = request.cep() != null ? request.cep() : this.cep;
+        this.uf = request.uf() != null ? request.uf() : this.uf;
+        this.cidade = request.cidade() != null ? request.cidade() : this.cidade;
+        this.numero = request.numero() != null ? request.numero() : this.numero;
+        this.complemento = request.complemento() != null ? request.complemento() : this.complemento;
+    }
+
 }

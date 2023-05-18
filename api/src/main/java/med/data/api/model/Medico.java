@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import med.data.api.dtos.requests.AtualizacaoMedicoRequest;
 import med.data.api.dtos.requests.MedicoRequest;
 import med.data.api.model.enums.Especialidade;
 
@@ -40,6 +41,14 @@ public class Medico {
                 .especialidade(request.especialidade())
                 .endereco(Endereco.of(request.endereco()))
                 .build();
+    }
+
+    public void atualizarInformacoes(AtualizacaoMedicoRequest request) {
+        this.nome = request.nome() != null ? request.nome() : this.nome;
+        this.telefone = request.telefone() != null ? request.telefone() : this.telefone;
+        if (request.endereco() != null) {
+            this.endereco.atualizarInformacoes(request.endereco());
+        }
     }
 
 }
