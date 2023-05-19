@@ -1,7 +1,9 @@
 package med.data.api.infra.exception.security.controller;
 
 import jakarta.validation.Valid;
+import med.data.api.domain.usuario.Usuario;
 import med.data.api.infra.exception.security.dtos.AutenticaDto;
+import med.data.api.infra.exception.security.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,14 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class AutenticaController {
 
     @Autowired
+    private TokenService tokenService;
+
+    @Autowired
     private AuthenticationManager manager;
 
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid AutenticaDto dados) {
         var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-        var authenticaon = manager.authenticate(token);
+        var authentication = manager.authenticate(token);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(tokenService.gerarToken((Usuario) authentication.getPrincipal()));
     }
 
 }
