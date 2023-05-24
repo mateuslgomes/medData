@@ -6,6 +6,7 @@ import med.data.api.infra.exception.security.dtos.AutenticaDto;
 import med.data.api.infra.exception.security.dtos.TokenJWTDto;
 import med.data.api.infra.exception.security.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,12 +26,10 @@ public class AutenticaController {
     private AuthenticationManager manager;
 
     @PostMapping
-    public ResponseEntity efetuarLogin(@RequestBody @Valid AutenticaDto dados) {
-        var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+    public ResponseEntity<TokenJWTDto> efetuarLogin(@RequestBody @Valid AutenticaDto dto) {
+        var authenticationToken = new UsernamePasswordAuthenticationToken(dto.login(), dto.senha());
         var authentication = manager.authenticate(authenticationToken);
-
         var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
-
         return ResponseEntity.ok(new TokenJWTDto(tokenJWT));
     }
 
