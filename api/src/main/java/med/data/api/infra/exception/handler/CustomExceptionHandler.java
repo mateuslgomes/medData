@@ -27,12 +27,6 @@ public class CustomExceptionHandler {
         return ResponseEntity.badRequest().body(ex.getFieldErrors().stream().map(ErroValidacaoDto::new).toList());
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<ErroValidacaoDto>> tratarErro400(MethodArgumentNotValidException ex) {
-        var erros = ex.getFieldErrors();
-        return ResponseEntity.badRequest().body(erros.stream().map(ErroValidacaoDto::new).toList());
-    }
-
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<String> tratarErro400(HttpMessageNotReadableException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
