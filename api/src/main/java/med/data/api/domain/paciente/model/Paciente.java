@@ -1,10 +1,7 @@
 package med.data.api.domain.paciente.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import med.data.api.domain.endereco.Endereco;
 import med.data.api.domain.paciente.dtos.request.AtualizacaoPacienteDto;
 import med.data.api.domain.paciente.dtos.request.CadastroPacienteDto;
@@ -17,9 +14,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Builder
 public class Paciente {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String nome;
     private String email;
@@ -33,13 +31,16 @@ public class Paciente {
 
     private Boolean ativo;
 
-    public Paciente(CadastroPacienteDto dto) {
-        this.ativo = true;
-        this.nome = dto.nome();
-        this.email = dto.email();
-        this.telefone = dto.telefone();
-        this.cpf = dto.cpf();
-        this.endereco = Endereco.of(dto.endereco());
+    public static Paciente of(CadastroPacienteDto dto) {
+        System.out.println(4);
+        return Paciente.builder()
+                .nome(dto.nome())
+                .cpf(dto.cpf())
+                .email(dto.email())
+                .endereco(Endereco.of(dto.endereco()))
+                .telefone(dto.telefone())
+                .ativo(true)
+                .build();
     }
 
     public void atualizarInformacoes(AtualizacaoPacienteDto dto) {
@@ -58,4 +59,5 @@ public class Paciente {
     public void excluir() {
         this.ativo = false;
     }
+
 }

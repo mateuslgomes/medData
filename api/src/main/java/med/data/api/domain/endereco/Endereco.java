@@ -23,6 +23,7 @@ public class Endereco {
     private String uf;
 
     public static Endereco of(EnderecoRequest enderecoRequest) {
+        System.out.println("--->  " + enderecoRequest.bairro());
         return Endereco.builder()
                 .logradouro(enderecoRequest.logradouro())
                 .bairro(enderecoRequest.bairro())
