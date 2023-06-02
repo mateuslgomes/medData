@@ -33,13 +33,7 @@ public class ConsultasServices {
     }
 
     public DetalhamentoConsultaDto agendar(AgendamentoConsultaDto dto) {
-        Medico medico;
-        if (dto.idMedico() == null) {
-            medico = medicoAleatorio();
-        } else {
-            medico = medicoRepository.findById(dto.idMedico())
-                    .orElseThrow(() -> new MedicoNotFoundException(dto.idMedico()));
-        }
+        Medico medico = buscaMedico(dto);
         Paciente paciente = pacienteRepository.findById(dto.idPaciente())
                 .orElseThrow(() -> new PacienteNotFoundException(dto.idPaciente()));
 
@@ -47,11 +41,15 @@ public class ConsultasServices {
         return DetalhamentoConsultaDto.of(consulta);
     }
 
-    private Medico medicoAleatorio(Especialidade especialidade, LocalDateTime data) {
-        if (especialidade == null) {
-            throw new ValidacaoException("A especialidade é obrigatória quando o médico não for selecionado");
+    private Medico buscaMedico(AgendamentoConsultaDto dto) {
+        if (dto.idMedico() != null) {
+            return medicoRepository.findById(dto.idMedico())
+                    .orElseThrow(() -> new MedicoNotFoundException(dto.idMedico()));
         }
-        return medicoRepository.buscarMedicoAleatorioLivreNaData(especialidade, data);
+        if (dto.especialidade() == null) {
+            throw new ValidacaoException("o campo especialidade é obrigatório quando o médico não foi escolhido");
+        }
+        return medicoRepository.buscarMedicoAleatorioLivreNaData(dto.especialidade(), dto.data());
     }
 
 }
