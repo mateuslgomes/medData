@@ -32,7 +32,6 @@ public class Paciente {
     private Boolean ativo;
 
     public static Paciente of(CadastroPacienteDto dto) {
-        System.out.println(4);
         return Paciente.builder()
                 .nome(dto.nome())
                 .cpf(dto.cpf())

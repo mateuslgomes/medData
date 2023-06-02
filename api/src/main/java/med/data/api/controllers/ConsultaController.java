@@ -4,6 +4,9 @@ package med.data.api.controllers;
 import jakarta.validation.Valid;
 import med.data.api.domain.consultas.dtos.AgendamentoConsultaDto;
 import med.data.api.domain.consultas.dtos.DetalhamentoConsultaDto;
+import med.data.api.domain.consultas.services.ConsultasServices;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,10 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("consultas")
 public class ConsultaController {
 
+    @Autowired
+    ConsultasServices consultasServices;
+
     @PostMapping
-    public ResponseEntity agendar(@RequestBody @Valid AgendamentoConsultaDto dto) {
-        System.out.println(dto);
-        return ResponseEntity.ok(new DetalhamentoConsultaDto(null, null, null, null));
+    public ResponseEntity<DetalhamentoConsultaDto> agendar(@RequestBody @Valid AgendamentoConsultaDto dto) {
+        var detalhamentoConsulta =  consultasServices.agendar(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(detalhamentoConsulta);
     }
 
 }

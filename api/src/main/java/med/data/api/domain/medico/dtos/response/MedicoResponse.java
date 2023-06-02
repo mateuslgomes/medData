@@ -16,4 +16,5 @@ public record MedicoResponse(
         this(medico.getId(), medico.getNome(), medico.getEmail(), medico.getCrm(), medico.getEspecialidade());
     }
 
+
 }

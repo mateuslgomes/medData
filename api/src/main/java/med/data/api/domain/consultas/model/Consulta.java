@@ -20,8 +20,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id")
 public class Consulta {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
