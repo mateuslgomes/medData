@@ -1,6 +1,8 @@
 package med.data.api.infra.exception.handler;
 
 import med.data.api.infra.exception.exceptions.MedicoNotFoundException;
+import med.data.api.infra.exception.exceptions.PacienteNotFoundException;
+import med.data.api.infra.exception.exceptions.ValidacaoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -20,6 +22,16 @@ public class CustomExceptionHandler {
     @ExceptionHandler(MedicoNotFoundException.class)
     public ResponseEntity<String> tratarMedicoNotFoundException(MedicoNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(PacienteNotFoundException.class)
+    public ResponseEntity<String> tratarPacienteNotFoundException(PacienteNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity<String> ValidacaoException(ValidacaoException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
