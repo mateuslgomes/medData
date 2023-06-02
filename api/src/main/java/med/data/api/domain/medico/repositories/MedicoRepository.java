@@ -33,4 +33,6 @@ public interface MedicoRepository extends JpaRepository<Medico, UUID> {
                 """)
     Medico buscarMedicoAleatorioLivreNaData(Especialidade especialidade, LocalDateTime data);
 
+    boolean existsByMedicoIdAndData(UUID uuid, LocalDateTime data);
+
 }
