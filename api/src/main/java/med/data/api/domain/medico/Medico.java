@@ -58,4 +58,18 @@ public class Medico {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Medico{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", ativo=" + ativo +
+                ", telefone='" + telefone + '\'' +
+                ", crm='" + crm + '\'' +
+                ", especialidade=" + especialidade +
+                ", endereco=" + endereco +
+                '}';
+    }
+
 }

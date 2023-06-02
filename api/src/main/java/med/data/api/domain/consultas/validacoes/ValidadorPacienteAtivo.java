@@ -10,11 +10,10 @@ import org.springframework.stereotype.Component;
 public class ValidadorPacienteAtivo implements ValidadorAgendamentoConsulta {
 
     @Autowired
-
     private PacienteRepository pacienteRepository;
 
     public void validar(AgendamentoConsultaDto dto) {
-        var pacienteEstaAtivo = pacienteRepository.findAtivoById(dto.idMedico());
+        var pacienteEstaAtivo = pacienteRepository.existsByIdAndAtivoTrue(dto.idPaciente());
         if (!pacienteEstaAtivo) {
             throw new ValidacaoException("O paciente não pode estar inativo");
         }

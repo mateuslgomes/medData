@@ -40,8 +40,11 @@ public class ConsultasServices {
     public DetalhamentoConsultaDto agendar(AgendamentoConsultaDto dto) {
         validador(dto);
         var medico = escolherMedico(dto);
+        System.out.println(medico.toString());
         var paciente = pacienteRepository.getReferenceById(dto.idPaciente());
+        System.out.println(paciente.toString());
         var consulta = new Consulta(null, medico, paciente, dto.data());
+        System.out.println(consulta.toString());
         consultaRepository.save(consulta);
         return DetalhamentoConsultaDto.of(consulta);
     }

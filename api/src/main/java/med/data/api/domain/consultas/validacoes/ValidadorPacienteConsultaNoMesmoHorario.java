@@ -13,7 +13,7 @@ public class ValidadorPacienteConsultaNoMesmoHorario implements ValidadorAgendam
     private PacienteRepository pacienteRepository;
 
     public void validar(AgendamentoConsultaDto dto) {
-        var pacienteEstaAtivo = pacienteRepository.findAtivoById(dto.idMedico());
+        var pacienteEstaAtivo = pacienteRepository.existsByIdAndAtivoTrue(dto.idPaciente());
         if (!pacienteEstaAtivo) {
             throw new ValidacaoException("O paciente não pode estar inativo");
         }

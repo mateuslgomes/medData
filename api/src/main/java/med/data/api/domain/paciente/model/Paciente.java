@@ -59,4 +59,16 @@ public class Paciente {
         this.ativo = false;
     }
 
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", endereco=" + endereco +
+                ", ativo=" + ativo +
+                '}';
+    }
 }
