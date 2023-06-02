@@ -33,8 +33,13 @@ public interface MedicoRepository extends JpaRepository<Medico, UUID> {
                 """)
     Medico buscarMedicoAleatorioLivreNaData(Especialidade especialidade, LocalDateTime data);
 
-    boolean existsByMedicoIdAndData(UUID uuid, LocalDateTime data);
 
-    boolean findAtivoById(UUID uuid);
+    @Query("""
+            select m.ativo
+            from Medico m
+            where
+            m.id = :id
+            """)
+    boolean findAtivoById(UUID id);
 
 }

@@ -29,7 +29,7 @@ public class ConsultasServices {
     private final List<ValidadorAgendamentoConsulta> validadores;
 
     @Autowired
-    ConsultasServices(ConsultaRepository consultaRepository, MedicoRepository medicoRepository, PacienteRepository pacienteRepository, List<ValidadorAgendamentoConsulta> validadores) {
+    public ConsultasServices(ConsultaRepository consultaRepository, MedicoRepository medicoRepository, PacienteRepository pacienteRepository, List<ValidadorAgendamentoConsulta> validadores) {
         this.consultaRepository = consultaRepository;
         this.medicoRepository = medicoRepository;
         this.pacienteRepository = pacienteRepository;

@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface ConsultaRepository extends JpaRepository<Consulta, UUID> {
 
-    boolean existSByPacienteIdAndDataBetween(UUID uuid, LocalDateTime primeiroHorario, LocalDateTime ultimoHorario);
+    boolean existsByMedicoIdAndData(UUID uuid, LocalDateTime data);
 
 }
