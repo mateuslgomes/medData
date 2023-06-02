@@ -35,4 +35,6 @@ public interface MedicoRepository extends JpaRepository<Medico, UUID> {
 
     boolean existsByMedicoIdAndData(UUID uuid, LocalDateTime data);
 
+    boolean findAtivoById(UUID uuid);
+
 }

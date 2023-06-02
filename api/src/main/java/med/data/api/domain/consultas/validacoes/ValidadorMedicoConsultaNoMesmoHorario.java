@@ -4,15 +4,15 @@ import med.data.api.domain.consultas.dtos.AgendamentoConsultaDto;
 import med.data.api.domain.medico.repositories.MedicoRepository;
 import med.data.api.infra.exception.exceptions.ValidacaoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class ValidadorMedicoConsultaNoMesmoHorario {
-
-    private final MedicoRepository medicoRepository;
+@Component
+public class ValidadorMedicoConsultaNoMesmoHorario implements ValidadorAgendamentoConsulta {
 
     @Autowired
-    ValidadorMedicoConsultaNoMesmoHorario(MedicoRepository medicoRepository) {
-        this.medicoRepository = medicoRepository;
-    }
+
+    MedicoRepository medicoRepository;
+
 
     public void validar(AgendamentoConsultaDto dto) {
         var medicoPossuiOutraConsultaNoMesmoHorario = medicoRepository.existsByMedicoIdAndData(dto.idMedico(), dto.data());

@@ -13,6 +13,6 @@ import java.util.UUID;
 public interface PacienteRepository extends JpaRepository<Paciente, UUID> {
     Page<Paciente> findAllByAtivoTrue(Pageable pageable);
 
-    boolean existsByMedicoIdAndData(UUID uuid, LocalDateTime data);
+    boolean findAtivoById(UUID uuid);
 
 }

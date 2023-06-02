@@ -5,6 +5,7 @@ import med.data.api.domain.consultas.dtos.AgendamentoConsultaDto;
 import med.data.api.domain.consultas.dtos.DetalhamentoConsultaDto;
 import med.data.api.domain.consultas.model.Consulta;
 import med.data.api.domain.consultas.repositories.ConsultaRepository;
+import med.data.api.domain.consultas.validacoes.ValidadorAgendamentoConsulta;
 import med.data.api.domain.medico.Medico;
 import med.data.api.domain.medico.enums.Especialidade;
 import med.data.api.domain.medico.repositories.MedicoRepository;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class ConsultasServices {
@@ -24,31 +26,37 @@ public class ConsultasServices {
     private final ConsultaRepository consultaRepository;
     private final MedicoRepository medicoRepository;
     private final PacienteRepository pacienteRepository;
+    private final List<ValidadorAgendamentoConsulta> validadores;
 
     @Autowired
-    public ConsultasServices(ConsultaRepository consultaRepository, MedicoRepository medicoRepository, PacienteRepository pacienteRepository) {
+    ConsultasServices(ConsultaRepository consultaRepository, MedicoRepository medicoRepository, PacienteRepository pacienteRepository, List<ValidadorAgendamentoConsulta> validadores) {
         this.consultaRepository = consultaRepository;
         this.medicoRepository = medicoRepository;
         this.pacienteRepository = pacienteRepository;
+        this.validadores = validadores;
     }
 
-    public DetalhamentoConsultaDto agendar(AgendamentoConsultaDto dto) {
-        Medico medico = buscaMedico(dto);
-        Paciente paciente = pacienteRepository.findById(dto.idPaciente())
-                .orElseThrow(() -> new PacienteNotFoundException(dto.idPaciente()));
 
-        var consulta = consultaRepository.save(new Consulta(null, medico, paciente, dto.data()));
+    public DetalhamentoConsultaDto agendar(AgendamentoConsultaDto dto) {
+        validador(dto);
+        var medico = escolherMedico(dto);
+        var paciente = pacienteRepository.getReferenceById(dto.idPaciente());
+        var consulta = new Consulta(null, medico, paciente, dto.data());
+        consultaRepository.save(consulta);
         return DetalhamentoConsultaDto.of(consulta);
     }
 
-    private Medico buscaMedico(AgendamentoConsultaDto dto) {
-        if (dto.idMedico() != null) {
-            return medicoRepository.findById(dto.idMedico())
-                    .orElseThrow(() -> new MedicoNotFoundException(dto.idMedico()));
+    private void validador(AgendamentoConsultaDto dto) {
+        if (!pacienteRepository.existsById(dto.idPaciente())) {
+            throw new PacienteNotFoundException(dto.idPaciente());
         }
-        if (dto.especialidade() == null) {
-            throw new ValidacaoException("o campo especialidade é obrigatório quando o médico não foi escolhido");
+        if (dto.idMedico() != null && !medicoRepository.existsById(dto.idMedico())) {
+            throw new MedicoNotFoundException(dto.idMedico());
         }
+        validadores.forEach(validador -> validador.validar(dto));
+    }
+
+    private Medico escolherMedico(AgendamentoConsultaDto dto) {
         return medicoRepository.buscarMedicoAleatorioLivreNaData(dto.especialidade(), dto.data());
     }
 

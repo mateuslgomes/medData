@@ -1,24 +1,21 @@
 package med.data.api.domain.consultas.validacoes;
 
 import med.data.api.domain.consultas.dtos.AgendamentoConsultaDto;
-import med.data.api.domain.medico.repositories.MedicoRepository;
 import med.data.api.domain.paciente.repositories.PacienteRepository;
 import med.data.api.infra.exception.exceptions.ValidacaoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class ValidadorPacienteConsultaNoMesmoHorario {
-
-    private final PacienteRepository pacienteRepository;
+@Component
+public class ValidadorPacienteConsultaNoMesmoHorario implements ValidadorAgendamentoConsulta {
 
     @Autowired
-    ValidadorPacienteConsultaNoMesmoHorario(PacienteRepository pacienteRepository) {
-        this.pacienteRepository = pacienteRepository;
-    }
+    private PacienteRepository pacienteRepository;
 
     public void validar(AgendamentoConsultaDto dto) {
-        var pacientePossuiOutraConsultaNoMesmoHorario = pacienteRepository.existsByMedicoIdAndData(dto.idMedico(), dto.data());
-        if (pacientePossuiOutraConsultaNoMesmoHorario) {
-            throw new ValidacaoException("O paciente já possui outra consulta agendada nesse mesmo horário");
+        var pacienteEstaAtivo = pacienteRepository.findAtivoById(dto.idMedico());
+        if (!pacienteEstaAtivo) {
+            throw new ValidacaoException("O paciente não pode estar inativo");
         }
     }
 
