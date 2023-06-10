@@ -1,6 +1,5 @@
 package med.data.api.domain.consultas.dtos;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import med.data.api.domain.medico.enums.Especialidade;

@@ -1,24 +1,20 @@
 package med.data.api.domain.consultas.services;
 
-import jakarta.transaction.Transactional;
 import med.data.api.domain.consultas.dtos.AgendamentoConsultaDto;
 import med.data.api.domain.consultas.dtos.DetalhamentoConsultaDto;
 import med.data.api.domain.consultas.model.Consulta;
 import med.data.api.domain.consultas.repositories.ConsultaRepository;
 import med.data.api.domain.consultas.validacoes.ValidadorAgendamentoConsulta;
 import med.data.api.domain.medico.Medico;
-import med.data.api.domain.medico.enums.Especialidade;
 import med.data.api.domain.medico.repositories.MedicoRepository;
-import med.data.api.domain.paciente.model.Paciente;
 import med.data.api.domain.paciente.repositories.PacienteRepository;
 import med.data.api.infra.exception.exceptions.MedicoNotFoundException;
 import med.data.api.infra.exception.exceptions.PacienteNotFoundException;
-import med.data.api.infra.exception.exceptions.ValidacaoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ConsultasServices {
@@ -36,17 +32,21 @@ public class ConsultasServices {
         this.validadores = validadores;
     }
 
-
     public DetalhamentoConsultaDto agendar(AgendamentoConsultaDto dto) {
         validador(dto);
-        var medico = escolherMedico(dto);
-        System.out.println(medico.toString());
+        Medico medico = escolherMedico(dto);
         var paciente = pacienteRepository.getReferenceById(dto.idPaciente());
-        System.out.println(paciente.toString());
         var consulta = new Consulta(null, medico, paciente, dto.data());
-        System.out.println(consulta.toString());
         consultaRepository.save(consulta);
         return DetalhamentoConsultaDto.of(consulta);
+    }
+
+    private Medico escolherMedico(AgendamentoConsultaDto dto) {
+        if (dto.idMedico() == null) {
+            return escolherMedicoEleatorio(dto);
+        } else {
+            return buscarMedicoEscolhido(dto.idMedico());
+        }
     }
 
     private void validador(AgendamentoConsultaDto dto) {
@@ -59,8 +59,12 @@ public class ConsultasServices {
         validadores.forEach(validador -> validador.validar(dto));
     }
 
-    private Medico escolherMedico(AgendamentoConsultaDto dto) {
+    private Medico escolherMedicoEleatorio(AgendamentoConsultaDto dto) {
         return medicoRepository.buscarMedicoAleatorioLivreNaData(dto.especialidade(), dto.data());
+    }
+
+    private Medico buscarMedicoEscolhido(UUID id) {
+        return medicoRepository.getReferenceById(id);
     }
 
 }
