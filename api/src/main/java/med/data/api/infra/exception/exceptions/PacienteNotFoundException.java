@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class PacienteNotFoundException extends RuntimeException {
     public PacienteNotFoundException(UUID id) {
-        super("O médico com id " +id+ " não foi encontrado.");
+        super("O Paciente com id " +id+ " não foi encontrado.");
     }
 
 }
