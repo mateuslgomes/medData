@@ -1,11 +1,10 @@
-package med.data.api.domain.paciente.dtos.request;
+package med.data.api.domain.medico.dtos.requests;
 
 import jakarta.validation.constraints.NotNull;
-import med.data.api.domain.medico.dtos.requests.EnderecoRequest;
 
 import java.util.UUID;
 
-public record AtualizacaoPacienteDto(
+public record MedicoAtualizacaoRequest(
         @NotNull
         UUID id,
         String nome,

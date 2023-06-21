@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import med.data.api.domain.medico.dtos.requests.AtualizacaoMedicoRequest;
+import med.data.api.domain.medico.dtos.requests.MedicoAtualizacaoRequest;
 import med.data.api.domain.medico.dtos.requests.MedicoRequest;
 import med.data.api.domain.medico.enums.Especialidade;
 import med.data.api.domain.endereco.Endereco;
@@ -50,26 +50,12 @@ public class Medico {
         this.ativo = false;
     }
 
-    public void atualizarInformacoes(AtualizacaoMedicoRequest request) {
+    public void atualizarInformacoes(MedicoAtualizacaoRequest request) {
         this.nome = request.nome() != null ? request.nome() : this.nome;
         this.telefone = request.telefone() != null ? request.telefone() : this.telefone;
         if (request.endereco() != null) {
             this.endereco.atualizarInformacoes(request.endereco());
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Medico{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", ativo=" + ativo +
-                ", telefone='" + telefone + '\'' +
-                ", crm='" + crm + '\'' +
-                ", especialidade=" + especialidade +
-                ", endereco=" + endereco +
-                '}';
     }
 
 }

@@ -1,12 +1,11 @@
 package med.data.api.domain.medico.repositories;
 
 import med.data.api.domain.consultas.model.Consulta;
-import med.data.api.domain.endereco.Endereco;
 import med.data.api.domain.medico.Medico;
 import med.data.api.domain.medico.dtos.requests.EnderecoRequest;
 import med.data.api.domain.medico.dtos.requests.MedicoRequest;
 import med.data.api.domain.medico.enums.Especialidade;
-import med.data.api.domain.paciente.dtos.request.CadastroPacienteDto;
+import med.data.api.domain.paciente.dtos.request.PacienteRequest;
 import med.data.api.domain.paciente.model.Paciente;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -69,7 +68,7 @@ class MedicoRepositoryTest {
     }
 
     private Paciente cadastrarPaciente(String nome, String email, String telefone, String cpf, EnderecoRequest endereco) {
-        var paciente = Paciente.of(new CadastroPacienteDto(nome, email, telefone, cpf, endereco));
+        var paciente = Paciente.of(new PacienteRequest(nome, email, telefone, cpf, endereco));
         testEntityManager.persist(paciente);
         return paciente;
     }
@@ -85,8 +84,8 @@ class MedicoRepositoryTest {
         );
     }
 
-    private CadastroPacienteDto dadosPaciente(String nome, String email, String cpf, String telefone, EnderecoRequest endereco) {
-        return new CadastroPacienteDto(
+    private PacienteRequest dadosPaciente(String nome, String email, String cpf, String telefone, EnderecoRequest endereco) {
+        return new PacienteRequest(
                 nome,
                 email,
                 cpf,

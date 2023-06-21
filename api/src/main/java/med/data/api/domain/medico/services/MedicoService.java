@@ -2,7 +2,7 @@ package med.data.api.domain.medico.services;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.data.api.domain.medico.dtos.requests.AtualizacaoMedicoRequest;
+import med.data.api.domain.medico.dtos.requests.MedicoAtualizacaoRequest;
 import med.data.api.domain.medico.dtos.requests.MedicoRequest;
 import med.data.api.domain.medico.dtos.response.MedicoResponse;
 import med.data.api.domain.medico.Medico;
@@ -32,7 +32,7 @@ public class MedicoService {
     }
 
     @Transactional
-    public Medico atualizar(@RequestBody @Valid AtualizacaoMedicoRequest request) {
+    public Medico atualizar(@RequestBody @Valid MedicoAtualizacaoRequest request) {
         var medico = medicoRepository.findById(request.id())
                 .orElseThrow(() -> new MedicoNotFoundException(request.id()));
         medico.atualizarInformacoes(request);

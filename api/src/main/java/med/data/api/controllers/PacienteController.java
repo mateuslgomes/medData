@@ -2,8 +2,8 @@ package med.data.api.controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import med.data.api.domain.paciente.dtos.request.CadastroPacienteDto;
-import med.data.api.domain.paciente.dtos.response.DetalhamentoPacienteDto;
+import med.data.api.domain.paciente.dtos.request.PacienteRequest;
+import med.data.api.domain.paciente.dtos.response.PacienteResponse;
 import med.data.api.domain.paciente.model.Paciente;
 import med.data.api.domain.paciente.services.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +23,12 @@ public class PacienteController {
     PacienteService pacienteService;
 
     @PostMapping
-    public ResponseEntity<Paciente> cadastrarMedicos(@RequestBody @Valid CadastroPacienteDto dto) {
+    public ResponseEntity<Paciente> cadastrarMedicos(@RequestBody @Valid PacienteRequest dto) {
         var paciente = pacienteService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(paciente);
     }
 
-    @GetMapping ResponseEntity<Page<DetalhamentoPacienteDto>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable pageable) {
+    @GetMapping ResponseEntity<Page<PacienteResponse>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable pageable) {
         return ResponseEntity.ok(pacienteService.listar(pageable));
     }
 

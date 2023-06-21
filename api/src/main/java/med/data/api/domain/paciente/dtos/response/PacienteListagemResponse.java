@@ -4,9 +4,9 @@ import med.data.api.domain.paciente.model.Paciente;
 
 import java.util.UUID;
 
-public record ListagemPacienteDto(UUID id, String nome, String email, String cpf) {
+public record PacienteListagemResponse(UUID id, String nome, String email, String cpf) {
 
-    public ListagemPacienteDto(Paciente paciente) {
+    public PacienteListagemResponse(Paciente paciente) {
         this(paciente.getId(), paciente.getNome(), paciente.getEmail(), paciente.getCpf());
     }
 

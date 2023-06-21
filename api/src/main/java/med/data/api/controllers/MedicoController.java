@@ -2,7 +2,7 @@ package med.data.api.controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import med.data.api.domain.medico.dtos.requests.AtualizacaoMedicoRequest;
+import med.data.api.domain.medico.dtos.requests.MedicoAtualizacaoRequest;
 import med.data.api.domain.medico.dtos.requests.MedicoRequest;
 import med.data.api.domain.medico.dtos.response.MedicoResponse;
 import med.data.api.domain.medico.Medico;
@@ -36,7 +36,7 @@ public class MedicoController {
     }
 
     @PutMapping
-    public ResponseEntity<Medico> atualizar(@RequestBody @Valid AtualizacaoMedicoRequest request) {
+    public ResponseEntity<Medico> atualizar(@RequestBody @Valid MedicoAtualizacaoRequest request) {
          return ResponseEntity.ok(medicoService.atualizar(request));
     }
 

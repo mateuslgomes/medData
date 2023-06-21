@@ -1,9 +1,8 @@
 package med.data.api.domain.paciente.services;
 
 import jakarta.transaction.Transactional;
-import med.data.api.domain.medico.dtos.response.MedicoResponse;
-import med.data.api.domain.paciente.dtos.request.CadastroPacienteDto;
-import med.data.api.domain.paciente.dtos.response.DetalhamentoPacienteDto;
+import med.data.api.domain.paciente.dtos.request.PacienteRequest;
+import med.data.api.domain.paciente.dtos.response.PacienteResponse;
 import med.data.api.domain.paciente.model.Paciente;
 import med.data.api.domain.paciente.repositories.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +17,14 @@ public class PacienteService {
     PacienteRepository pacienteRepository;
 
     @Transactional
-    public Paciente save(CadastroPacienteDto dto) {
+    public Paciente save(PacienteRequest dto) {
         var paciente = Paciente.of(dto);
         pacienteRepository.save(paciente);
         return paciente;
     }
 
-    public Page<DetalhamentoPacienteDto> listar(Pageable pageable) {
-        return pacienteRepository.findAllByAtivoTrue(pageable).map(DetalhamentoPacienteDto::new);
+    public Page<PacienteResponse> listar(Pageable pageable) {
+        return pacienteRepository.findAllByAtivoTrue(pageable).map(PacienteResponse::new);
     }
 
 }

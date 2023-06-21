@@ -3,8 +3,8 @@ package med.data.api.domain.paciente.model;
 import jakarta.persistence.*;
 import lombok.*;
 import med.data.api.domain.endereco.Endereco;
-import med.data.api.domain.paciente.dtos.request.AtualizacaoPacienteDto;
-import med.data.api.domain.paciente.dtos.request.CadastroPacienteDto;
+import med.data.api.domain.paciente.dtos.request.PacienteUpdateRequest;
+import med.data.api.domain.paciente.dtos.request.PacienteRequest;
 
 import java.util.UUID;
 
@@ -21,17 +21,13 @@ public class Paciente {
     private UUID id;
     private String nome;
     private String email;
-
     private String telefone;
-
     private String cpf;
-
     @Embedded
     private Endereco endereco;
-
     private Boolean ativo;
 
-    public static Paciente of(CadastroPacienteDto dto) {
+    public static Paciente of(PacienteRequest dto) {
         return Paciente.builder()
                 .nome(dto.nome())
                 .cpf(dto.cpf())
@@ -42,7 +38,7 @@ public class Paciente {
                 .build();
     }
 
-    public void atualizarInformacoes(AtualizacaoPacienteDto dto) {
+    public void atualizarInformacoes(PacienteUpdateRequest dto) {
         if (dto.nome() != null) {
             this.nome = dto.nome();
         }
@@ -59,16 +55,4 @@ public class Paciente {
         this.ativo = false;
     }
 
-    @Override
-    public String toString() {
-        return "Paciente{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", endereco=" + endereco +
-                ", ativo=" + ativo +
-                '}';
-    }
 }

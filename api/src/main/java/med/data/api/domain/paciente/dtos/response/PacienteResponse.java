@@ -6,9 +6,9 @@ import med.data.api.domain.paciente.model.Paciente;
 
 import java.util.UUID;
 
-public record DetalhamentoPacienteDto (UUID id, String nome, String email, String cpf, String telefone, Endereco endereco) {
+public record PacienteResponse(UUID id, String nome, String email, String cpf, String telefone, Endereco endereco) {
 
-    public DetalhamentoPacienteDto(Paciente paciente) {
+    public PacienteResponse(Paciente paciente) {
         this(paciente.getId(), paciente.getNome(), paciente.getEmail(), paciente.getCpf(), paciente.getTelefone(), paciente.getEndereco());
     }
 
