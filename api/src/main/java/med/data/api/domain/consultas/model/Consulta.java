@@ -22,25 +22,12 @@ public class Consulta {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medico_id")
     private Medico medico;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
-
     private LocalDateTime data;
-
-    @Override
-    public String toString() {
-        return "Consulta{" +
-                "id=" + id +
-                ", medico=" + medico +
-                ", paciente=" + paciente +
-                ", data=" + data +
-                '}';
-    }
 
 }

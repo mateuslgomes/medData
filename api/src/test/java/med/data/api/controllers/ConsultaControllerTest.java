@@ -1,7 +1,7 @@
 package med.data.api.controllers;
 
-import med.data.api.domain.consultas.dtos.AgendamentoConsultaDto;
-import med.data.api.domain.consultas.dtos.DetalhamentoConsultaDto;
+import med.data.api.domain.consultas.dtos.requests.ConsultaRequest;
+import med.data.api.domain.consultas.dtos.response.ConsultaResponse;
 import med.data.api.domain.consultas.services.ConsultasServices;
 import med.data.api.domain.medico.enums.Especialidade;
 import org.junit.jupiter.api.DisplayName;
@@ -34,10 +34,10 @@ class ConsultaControllerTest {
     MockMvc mockMvc;
 
     @Autowired
-    private JacksonTester<AgendamentoConsultaDto> dadosAgendamentoConsultaJson;
+    private JacksonTester<ConsultaRequest> dadosAgendamentoConsultaJson;
 
     @Autowired
-    private JacksonTester<DetalhamentoConsultaDto> dadosDetalhamentoConsulta;
+    private JacksonTester<ConsultaResponse> dadosDetalhamentoConsulta;
 
     @MockBean
     private ConsultasServices agendaDeConsultas;
@@ -61,7 +61,7 @@ class ConsultaControllerTest {
         var idMedico = UUID.randomUUID();
         var idPaciente = UUID.randomUUID();
 
-        var dadosDetalhamento = new DetalhamentoConsultaDto(null, idMedico, idPaciente, data);
+        var dadosDetalhamento = new ConsultaResponse(null, idMedico, idPaciente, data);
         when(agendaDeConsultas.agendar(any())).thenReturn(dadosDetalhamento);
 
         var response = mockMvc
@@ -69,7 +69,7 @@ class ConsultaControllerTest {
                         post("/consultas")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(dadosAgendamentoConsultaJson.write(
-                                        new AgendamentoConsultaDto(UUID.randomUUID(), UUID.randomUUID(), data, especialidade)
+                                        new ConsultaRequest(UUID.randomUUID(), UUID.randomUUID(), data, especialidade)
                                 ).getJson())
                 )
                 .andReturn().getResponse();

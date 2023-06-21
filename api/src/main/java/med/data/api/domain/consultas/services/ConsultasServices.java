@@ -1,7 +1,7 @@
 package med.data.api.domain.consultas.services;
 
-import med.data.api.domain.consultas.dtos.AgendamentoConsultaDto;
-import med.data.api.domain.consultas.dtos.DetalhamentoConsultaDto;
+import med.data.api.domain.consultas.dtos.requests.ConsultaRequest;
+import med.data.api.domain.consultas.dtos.response.ConsultaResponse;
 import med.data.api.domain.consultas.model.Consulta;
 import med.data.api.domain.consultas.repositories.ConsultaRepository;
 import med.data.api.domain.consultas.validacoes.ValidadorAgendamentoConsulta;
@@ -32,16 +32,16 @@ public class ConsultasServices {
         this.validadores = validadores;
     }
 
-    public DetalhamentoConsultaDto agendar(AgendamentoConsultaDto dto) {
+    public ConsultaResponse agendar(ConsultaRequest dto) {
         validador(dto);
         Medico medico = escolherMedico(dto);
         var paciente = pacienteRepository.getReferenceById(dto.idPaciente());
         var consulta = new Consulta(null, medico, paciente, dto.data());
         consultaRepository.save(consulta);
-        return DetalhamentoConsultaDto.of(consulta);
+        return ConsultaResponse.of(consulta);
     }
 
-    private Medico escolherMedico(AgendamentoConsultaDto dto) {
+    private Medico escolherMedico(ConsultaRequest dto) {
         if (dto.idMedico() == null) {
             return escolherMedicoEleatorio(dto);
         } else {
@@ -49,7 +49,7 @@ public class ConsultasServices {
         }
     }
 
-    private void validador(AgendamentoConsultaDto dto) {
+    private void validador(ConsultaRequest dto) {
         if (!pacienteRepository.existsById(dto.idPaciente())) {
             throw new PacienteNotFoundException(dto.idPaciente());
         }
@@ -59,7 +59,7 @@ public class ConsultasServices {
         validadores.forEach(validador -> validador.validar(dto));
     }
 
-    private Medico escolherMedicoEleatorio(AgendamentoConsultaDto dto) {
+    private Medico escolherMedicoEleatorio(ConsultaRequest dto) {
         return medicoRepository.buscarMedicoAleatorioLivreNaData(dto.especialidade(), dto.data());
     }
 

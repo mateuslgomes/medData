@@ -1,6 +1,6 @@
 package med.data.api.domain.consultas.validacoes;
 
-import med.data.api.domain.consultas.dtos.AgendamentoConsultaDto;
+import med.data.api.domain.consultas.dtos.requests.ConsultaRequest;
 import med.data.api.domain.medico.repositories.MedicoRepository;
 import med.data.api.infra.exception.exceptions.ValidacaoException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ public class ValidandoMedicoAtivo implements ValidadorAgendamentoConsulta{
     @Autowired
     private MedicoRepository medicoRepository;
 
-    public void validar(AgendamentoConsultaDto dto) {
+    public void validar(ConsultaRequest dto) {
         if (dto.idMedico() == null) {
             return;
         }
