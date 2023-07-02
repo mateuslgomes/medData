@@ -18,6 +18,7 @@ Tecnologias:
 - Spring Security
 - Spring Docs (Swagger)
 - MySQL
+- Flyway
 
 Como executar o projeto:
 
